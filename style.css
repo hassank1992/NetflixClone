@@ -1,0 +1,13 @@
+.netflixOriginal {
+  overflow-x: scroll;
+  white-space: nowrap;
+}
+.original__Movies > img {
+  width: 130px;
+  height: 200px;
+}
+
+.movies__Container > img {
+  width: 110px;
+  height: 80px;
+}
