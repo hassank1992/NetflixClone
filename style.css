@@ -1,3 +1,139 @@
+body {
+  background-color: black;
+  color: white;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: 0;
+}
+
+.header {
+  background-color: rgba(0, 0, 0, 0.05);
+  position: absolute;
+  display: flex;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  font-weight: 19.2px;
+  font-size: 14px;
+  height: 70px;
+}
+.header__Logo {
+  height: 60px;
+  width: 90px;
+  margin-left: 50px;
+  padding-top: 5px;
+}
+.header__Logo img {
+  height: 60px;
+  z-index: 1;
+}
+.nav__bar {
+  display: flex;
+  margin-left: 60px;
+  margin-top: 13px;
+}
+.nav__bar ul {
+  list-style: none;
+  white-space: nowrap;
+}
+.nav__bar li {
+  display: inline;
+
+  margin-left: 15px;
+  margin-right: 15px;
+}
+.right_menu {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  width: 50%;
+}
+.right_menu div {
+  margin-right: 35px;
+}
+.profile__pic {
+  margin-right: 15px;
+}
+.profile__pic img {
+  width: 25px;
+  height: 25px;
+  border-radius: 5px;
+  margin-top: 3px;
+}
+.drop__Container {
+  display: none;
+}
+.up__arrow {
+  margin-left: 87px;
+}
+
+.dropdown:hover .drop__Container {
+  display: block;
+  position: absolute;
+  top: 75px;
+  right: 18px;
+  height: 200px;
+  width: 150px;
+}
+.drop__Container div {
+  background-color: red;
+  height: 150px;
+}
+.featured {
+  height: 400px;
+  background-image: url("https://occ-0-998-2568.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABYpCXWxYNuJvu7a0cptzX_6wG5iX5oemNm1fKGtdXBJ7Ly4r20ISX3Yc8dW9mMKm5tZSjywpvsupSG8MkcK-jANdOLWy.webp?r=d8d");
+  background-size: cover;
+  object-fit: contain;
+  padding: 0 0 0 30px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+.featured::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.featured h2 {
+  font-size: 50px;
+  margin: 0;
+  z-index: 10;
+}
+.featureButton {
+  z-index: 10;
+}
+.featured .featureButton button {
+  font-size: 20px;
+  color: white;
+  background-color: rgba(109, 109, 110, 0.7);
+  padding: 8px 24px;
+  border: none;
+  border-radius: 4px;
+}
+.featured .featureButton .button__play {
+  background-color: white;
+  color: black;
+}
+.button__play i {
+  margin-right: 6px;
+}
+.featured .feature__description {
+  max-width: 350px;
+  font-weight: 400;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.45);
+  z-index: 10;
+}
 .netflixOriginal {
   overflow-x: scroll;
   white-space: nowrap;
