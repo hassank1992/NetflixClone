@@ -18,6 +18,7 @@ body {
   font-weight: 19.2px;
   font-size: 14px;
   height: 70px;
+  width: 100%;
 }
 .header__Logo {
   height: 60px;
@@ -29,6 +30,7 @@ body {
   height: 60px;
   z-index: 1;
 }
+
 .nav__bar {
   display: flex;
   margin-left: 60px;
@@ -84,8 +86,14 @@ body {
   background-color: red;
   height: 150px;
 }
+@media only screen and (max-width: 800px) {
+  .nav__bar,
+  .right_menu {
+    display: none;
+  }
+}
 .featured {
-  height: 400px;
+  height: 600px;
   background-image: url("https://occ-0-998-2568.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABYpCXWxYNuJvu7a0cptzX_6wG5iX5oemNm1fKGtdXBJ7Ly4r20ISX3Yc8dW9mMKm5tZSjywpvsupSG8MkcK-jANdOLWy.webp?r=d8d");
   background-size: cover;
   object-fit: contain;
