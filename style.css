@@ -200,3 +200,14 @@ body {
 .movies .movies__header h2 {
   padding-left: 30px;
 }
+.modal-body iframe {
+  width: 100%;
+}
+.modal-body span {
+  color: #333;
+  height: 60px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

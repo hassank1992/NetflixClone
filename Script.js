@@ -63,14 +63,70 @@ function fetch_Movies(url,element_Selector,poster_path){
     })
   
 }
+async function getMovieTrailer(id){
+ var url=`https://api.themoviedb.org/3/movie/${id}/videos?api_key=19f84e11932abbc79e6d83f82d6d1045&language=en-US`;
+  return await fetch(url).then((response)=>{
+  if(response.ok)
+    {
+      return response.json();
+    }
+  else{
+
+    setTrailers("");
+}})
+}
+
+const setTrailers=(trailers)=>{
+const iframe=document.getElementById("movieTrailer");
+const MovieNotFound=document.querySelector(".trailerNotFound"); 
+if(trailers.length>0)
+{
+ 
+  MovieNotFound.classList.add('d-none');
+  iframe.classList.remove('d-none');
+  iframe.src=`https://www.youtube.com/embed/${trailers[0].key}`
+}
+else{
+MovieNotFound.classList.remove('d-none');
+
+iframe.classList.add('d-none');
+}
+}
+
+
+
+const handleMovieSelection=(e)=>{
+  const id =e.target.getAttribute('data-id');
+  getMovieTrailer(id).then((data)=>{
+    const results=data.results;
+
+    const youtubeTrailers=results.filter((result)=>{
+      if(result.site=="YouTube"&& result.type=="Trailer")
+      {
+        return true;
+      }
+      else{
+        return false;
+      }
+    })
+    setTrailers(youtubeTrailers); 
+   //  show_Movies(data,element_Selector,poster_path);
+   });
+  $('#trailerModal').modal('show');
+}
+
 function show_Movies(movies,element_Selector,poster_path) {
   
   var moviesEl = document.querySelector(element_Selector);
-
+  
   for (var movie of movies.results) {
-    var image=`<img src="https://image.tmdb.org/t/p/original/${movie[poster_path]} "/>`;
-
-    moviesEl.innerHTML +=image;
+    var imageEl=document.createElement('img');
+    imageEl.setAttribute('data-id',movie.id);
+    imageEl.src=`https://image.tmdb.org/t/p/original/${movie[poster_path]}`;
+    imageEl.addEventListener('click',(e)=>{
+      handleMovieSelection(e);
+    })
+    moviesEl.appendChild(imageEl);
     }
-    console.log(moviesEl);
+    
 }
