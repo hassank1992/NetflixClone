@@ -3,11 +3,8 @@ window.onload = () => {
 get_Original(); 
 get_Trending();
 get_TopMovies();
-get_ActionMovies();
-get_ComedyMovies();
-get_HorrorMovies();
-get_RomanceMovies();
-get_AnimeMovies();
+
+getGenre();
 };
 function get_Original(){
  var url='https://api.themoviedb.org/3/discover/tv?api_key=19f84e11932abbc79e6d83f82d6d1045&with_networks=213'; 
@@ -21,29 +18,105 @@ function get_Trending(){
   var url='https://api.themoviedb.org/3/movie/top_rated?api_key=19f84e11932abbc79e6d83f82d6d1045&language=en-US&page=1'; 
  fetch_Movies(url,"#top","backdrop_path");
  }
- function get_ActionMovies(){
-   var url='https://api.themoviedb.org/3/discover/movie?api_key=19f84e11932abbc79e6d83f82d6d1045&with_genres=28';
-   fetch_Movies(url,"#action","backdrop_path");
-  }
 
-  function get_ComedyMovies(){
-    var url='https://api.themoviedb.org/3/discover/movie?api_key=19f84e11932abbc79e6d83f82d6d1045&with_genres=35';
-    fetch_Movies(url,"#comedy","backdrop_path");
-   }
 
-   function get_HorrorMovies(){
-    var url='https://api.themoviedb.org/3/discover/movie?api_key=19f84e11932abbc79e6d83f82d6d1045&with_genres=27';
-    fetch_Movies(url,"#horror","backdrop_path");
-   }
 
-   function get_RomanceMovies(){
-    var url='https://api.themoviedb.org/3/discover/movie?api_key=19f84e11932abbc79e6d83f82d6d1045&with_genres=10749';
-    fetch_Movies(url,"#romance","backdrop_path");
+
+
+
+
+
+
+
+
+   function fetchMoviesBasedOnGenre(id)
+   {
+    var url ="https://api.themoviedb.org/3/discover/movie?";
+    url +="api_key=19f84e11932abbc79e6d83f82d6d1045";
+    url +=`&with_genres=${id}`;
+
+    return fetch(url).then((response)=>{
+      if(response.ok)
+        {
+          return response.json();
+        }
+      else{
+          throw new Error(response.statusText);
+    }})
+
    }
-   function get_AnimeMovies(){
-    var url='https://api.themoviedb.org/3/discover/movie?api_key=19f84e11932abbc79e6d83f82d6d1045&with_genres=16';
-    fetch_Movies(url,"#anime","backdrop_path");
+   
+
+function showMoviesBasedOnGenre(genreName,movies){
+  var allMovies=document.querySelector('.movies');
+  console.log(genreName);
+   console.log(movies);
+ var genreEl=document.createElement('div');
+ genreEl.classList.add('movies__header');
+genreEl.innerHTML=`<h2>${genreName}</h2>`;
+var moviesEl =document.createElement('div');
+moviesEl.setAttribute('id',genreName);
+moviesEl.classList.add('movies__Container');
+  // <div class="movies__header"><h2>Trendings Now</h2></div>
+  //       <div class="movies__Container " id="trend">
+         
+         for (var movie of movies.results) {
+    var imageEl=document.createElement('img');
+    imageEl.setAttribute('data-id',movie.id);
+    imageEl.src=`https://image.tmdb.org/t/p/original/${movie["backdrop_path"]}`;
+    imageEl.addEventListener('click',(e)=>{
+      handleMovieSelection(e);
+    })
+    moviesEl.appendChild(imageEl);
+    }
+allMovies.appendChild(genreEl);
+allMovies.appendChild(moviesEl);
+
+}
+
+
+   
+   function showMoviesGenre(genres)
+   {
+     genres.genres.forEach(function(genre)
+     {
+       var movies=fetchMoviesBasedOnGenre(genre.id);
+       movies.then((movie)=>{
+        
+          
+          showMoviesBasedOnGenre(genre.name,movie);
+        }).catch((error)=>{
+        console.log(error);
+        })
+       
+     })
+     
    }
+  
+    
+    
+function getGenre(){
+var url ="https://api.themoviedb.org/3/genre/movie/list?api_key=19f84e11932abbc79e6d83f82d6d1045&language=en-US";
+
+fetch(url).then((response)=>{
+  if(response.ok)
+    {
+      return response.json();
+    }
+  else{
+      throw new Error(response.statusText);
+}}).then((data)=>{
+
+  
+  showMoviesGenre(data);
+}).catch((error)=>{
+console.log(error);
+})
+
+}
+
+
+
 
 function fetch_Movies(url,element_Selector,poster_path){
   
@@ -130,3 +203,9 @@ function show_Movies(movies,element_Selector,poster_path) {
     }
     
 }
+$("#trailerModal").on('hide.bs.modal', function() {
+  $('#movieTrailer').attr('src','');
+  
+});
+//https://api.themoviedb.org/3/genre/movie/list?api_key=19f84e11932abbc79e6d83f82d6d1045&language=en-US
+//   https://api.themoviedb.org/3/discover/movie?api_key=19f84e11932abbc79e6d83f82d6d1045&with_genres=28
